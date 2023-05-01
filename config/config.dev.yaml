@@ -1,0 +1,8 @@
+config:
+  info:
+    mode: 'DEV'
+    desc: 'API SERVER'
+
+  http:
+    host: 'localhost'
+    port: 8080

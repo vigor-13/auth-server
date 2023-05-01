@@ -1,0 +1,8 @@
+config:
+  info:
+    mode: 'PROD'
+    desc: 'API SERVER'
+
+  http:
+    host: 'localhost'
+    port: 80
