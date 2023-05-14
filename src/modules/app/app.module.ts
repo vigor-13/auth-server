@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { PrismaModule } from '../prisma';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import * as configuration from '../config';
+import * as configuration from '../../../config';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import * as configuration from '../config';
       isGlobal: true,
       load: [configuration.loadYaml],
     }),
+    PrismaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

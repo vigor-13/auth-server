@@ -23,6 +23,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:init": "pnpm exec prisma init",
     "prisma:migrate": "pnpm exec prisma migrate dev --name",
+    "prisma:generate": "pnpm prisma generate",
     "docker-dev:up": "cd ./docker && docker compose --env-file .env.dev -f docker-compose.dev.yml up",
     "docker-dev:down": "cd ./docker && docker compose -f docker-compose.dev.yml down"
   },

@@ -6,3 +6,6 @@ config:
   http:
     host: 'localhost'
     port: 8080
+
+  prisma:
+    database_url: 'postgresql://postgres:postgres@localhost:5432/postgres?schema=public'
