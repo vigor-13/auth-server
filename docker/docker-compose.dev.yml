@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    container_name: dev_db
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DEV_POSTGRES_ROOT_PASSWORD}
+    networks:
+      - dev_network
+
+networks:
+  dev_network:
+    driver: bridge
+
+volumes:
+  db_data:
