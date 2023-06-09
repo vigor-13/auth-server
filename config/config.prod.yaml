@@ -9,3 +9,6 @@ config:
 
   prisma:
     DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/postgres?schema=public'
+
+  jwt:
+    secret: 'DO NOT USE THIS VALUE. INSTEAD, CREATE A COMPLEX SECRET AND KEEP IT SAFE OUTSIDE OF THE SOURCE CODE.'

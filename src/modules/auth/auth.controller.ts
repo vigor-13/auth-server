@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import * as DTO from './auth.dto';
 
@@ -11,9 +11,14 @@ export class AuthController {
   @ApiOperation({
     description: 'Basic login API with email, password.',
   })
+  @ApiResponse({
+    status: 200,
+    description: 'login success.',
+    type: DTO.SignInResponse,
+  })
   @HttpCode(HttpStatus.OK)
   @Post('signIn')
-  signIn(@Body() props: DTO.SignInDto) {
+  signIn(@Body() props: DTO.SignInRequestBody) {
     return this.authService.signIn({
       email: props.email,
       password: props.password,
