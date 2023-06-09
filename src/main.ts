@@ -2,10 +2,13 @@ import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './modules/app';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const appConfig = app.get(ConfigService).get('config');
+
+  app.useGlobalPipes(new ValidationPipe());
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Auth Server Example')
