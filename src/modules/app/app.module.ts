@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaModule } from '../prisma';
-import { UserModule } from '../user';
-import { AuthModule } from '../auth';
+import { PrismaModule, UserModule, AuthModule } from '@modules';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import * as configuration from '../../../config';
