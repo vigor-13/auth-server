@@ -1,5 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Public } from '@utils';
 import { AuthService } from './auth.service';
 import * as DTO from './auth.dto';
 
@@ -16,6 +17,7 @@ export class AuthController {
     description: 'login success.',
     type: DTO.SignInResponse,
   })
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('signIn')
   signIn(@Body() props: DTO.SignInRequestBody) {
