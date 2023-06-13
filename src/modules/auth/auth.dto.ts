@@ -16,7 +16,7 @@ export class SignInRequestBody {
   password: string;
 }
 
-export class SignInResponse {
+export class SignInResponseBody {
   @ApiProperty()
   access_token: string;
 }
