@@ -12,9 +12,9 @@ export class AuthService {
   ) {}
 
   /**
-   * Local user validation
+   * Local User Validation
    */
-  private async _validateLocalUser(
+  private async validateLocalUser(
     props: DTO.SignInRequestBody,
   ): Promise<User | null> {
     const user = await this.userService.findUser({
@@ -34,10 +34,10 @@ export class AuthService {
   }
 
   /**
-   * Signin local user
+   * Signin Local User
    */
   async signIn(props: DTO.SignInRequestBody): Promise<any> {
-    const user = await this._validateLocalUser(props);
+    const user = await this.validateLocalUser(props);
 
     return {
       access_token: await this.jwtService.signAsync({
@@ -45,5 +45,17 @@ export class AuthService {
         email: user.email,
       }),
     };
+  }
+
+  /**
+   * Signup Local User
+   */
+  async signUp(props: DTO.SignUpRequestBody): Promise<any> {
+    const newUser = await this.userService.createUser({
+      email: props.email,
+      password: props.password,
+    });
+
+    return null;
   }
 }
