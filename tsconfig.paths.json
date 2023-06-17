@@ -5,7 +5,7 @@
       "@root": ["./src"],
       "@modules": ["./src/modules"],
       "@modules/*": ["./src/modules/*"],
-      "@utils": ["./src/utils"]
+      "@commons": ["./src/commons"]
     }
   }
 }
