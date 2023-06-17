@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import * as DTO from './auth.dto';
 import { Public } from '@commons';
@@ -14,20 +14,6 @@ export class AuthController {
    */
   @ApiOperation({
     description: 'Basic signin API with email, password.',
-  })
-  @ApiBody({
-    schema: {
-      properties: {
-        email: {
-          type: 'string',
-          example: 'admin@gmail.com',
-        },
-        password: {
-          type: 'string',
-          example: '1234',
-        },
-      },
-    },
   })
   @ApiResponse({
     status: 200,
