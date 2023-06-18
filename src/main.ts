@@ -9,6 +9,7 @@ async function bootstrap() {
   const appConfig = app.get(ConfigService).get('config');
 
   app.useGlobalPipes(new ValidationPipe());
+  app.enableShutdownHooks();
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Auth Server Example')
