@@ -18,12 +18,12 @@ export class AuthController {
   @ApiResponse({
     status: 200,
     description: 'success',
-    type: DTO.SignInResponseBody,
+    type: DTO.SignInResponseBodyDto,
   })
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('signIn')
-  signIn(@Body() props: DTO.SignInRequestBody) {
+  signIn(@Body() props: DTO.SignInRequestBodyDto) {
     return this.authService.signIn(props);
   }
 
@@ -41,7 +41,7 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('signUp')
-  signUp(@Body() props: DTO.SignUpRequestBody) {
+  signUp(@Body() props: DTO.SignUpRequestBodyDto) {
     return this.authService.signUp(props);
   }
 }

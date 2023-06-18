@@ -15,7 +15,7 @@ export class AuthService {
    * Local User Validation
    */
   private async validateLocalUser(
-    props: DTO.SignInRequestBody,
+    props: DTO.SignInRequestBodyDto,
   ): Promise<User | null> {
     const user = await this.userService.findUser({
       email: props.email,
@@ -36,7 +36,7 @@ export class AuthService {
   /**
    * Signin Local User
    */
-  async signIn(props: DTO.SignInRequestBody): Promise<any> {
+  async signIn(props: DTO.SignInRequestBodyDto): Promise<any> {
     const user = await this.validateLocalUser(props);
 
     return {
@@ -50,7 +50,7 @@ export class AuthService {
   /**
    * Signup Local User
    */
-  async signUp(props: DTO.SignUpRequestBody): Promise<any> {
+  async signUp(props: DTO.SignUpRequestBodyDto): Promise<any> {
     const newUser = await this.userService.createUser({
       email: props.email,
       password: props.password,

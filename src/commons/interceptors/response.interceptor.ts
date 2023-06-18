@@ -7,17 +7,7 @@ import {
 import Express from 'express';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-export interface ResponseBody<T> {
-  status: {
-    isSuccess: boolean;
-    code: number;
-    message: string | null;
-    timestamp: string;
-    path: string;
-  };
-  data: T;
-}
+import { ResponseBody } from '@commons';
 
 @Injectable()
 export class ResponseInterceptor<T>

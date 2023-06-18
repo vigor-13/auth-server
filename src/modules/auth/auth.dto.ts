@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { ResponseBodyWithoutDataDto } from '@commons';
 
-class EmailWithPassword {
+class EmailWithPasswordDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsEmail()
@@ -12,17 +13,26 @@ class EmailWithPassword {
   password: string;
 }
 
+class SignInResponseDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  access_token: string;
+}
+
 /**
  * SignIn
  */
-export class SignInRequestBody extends EmailWithPassword {}
 
-export class SignInResponseBody {
+export class SignInRequestBodyDto extends EmailWithPasswordDto {}
+
+export class SignInResponseBodyDto extends ResponseBodyWithoutDataDto {
   @ApiProperty()
-  access_token: string;
+  data: SignInResponseDto;
 }
 
 /**
  * SignUp
  */
-export class SignUpRequestBody extends EmailWithPassword {}
+
+export class SignUpRequestBodyDto extends EmailWithPasswordDto {}
