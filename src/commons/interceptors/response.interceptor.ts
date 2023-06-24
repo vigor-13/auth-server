@@ -14,8 +14,7 @@ import { ResponseBody } from '@commons';
 export class ResponseInterceptor<T>
   implements NestInterceptor<T, ResponseBody<T>>
 {
-  private readonly requestLogger = new Logger('HTTP Request');
-  private readonly responseLogger = new Logger('HTTP Response');
+  private readonly logger = new Logger('Response Interceptor');
 
   intercept(
     context: ExecutionContext,
@@ -24,18 +23,12 @@ export class ResponseInterceptor<T>
     const request = context.switchToHttp().getRequest<Express.Request>();
     const response = context.switchToHttp().getResponse<Express.Response>();
 
-    this.requestLogger.log(
-      `{${request.method}, ${request.url}}, {${request.ip}}, {${request.get(
-        'User-Agent',
-      )}}`,
-    );
-
     return next.handle().pipe(
       map((data) => {
-        this.responseLogger.log(
-          `{${request.method}, ${request.url}}, {${request.ip}}, {${
-            response.statusCode
-          }, "${
+        this.logger.log(
+          `{${request.method}, ${request.url}}, {${request.ip}}, {${request.get(
+            'User-Agent',
+          )}}, {${response.statusCode}, "${
             response.statusMessage ? response.statusMessage : 'No Message'
           }"}\n`,
         );
