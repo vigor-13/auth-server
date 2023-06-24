@@ -30,11 +30,13 @@ export class AuthService {
    * Signup Local User
    */
   async signUp(props: DTO.SignUpRequestBodyDto): Promise<null> {
+    await this.authUtilService.checkIsDuplicatedEmail(props.email);
+
     const hashedPassword = await this.authUtilService.passwordHashingByArgon2(
       props.password,
     );
 
-    const newUser = await this.userService.createUser({
+    await this.userService.createUser({
       email: props.email,
       password: hashedPassword,
     });

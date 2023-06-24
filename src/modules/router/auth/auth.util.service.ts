@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as Argon2 from 'argon2';
 import * as DTO from './auth.dto';
 import { UserService } from '@modules/router/user';
@@ -44,5 +48,18 @@ export class AuthUtilService {
 
     delete user.password;
     return user;
+  }
+
+  async checkIsDuplicatedEmail(email: string) {
+    const user = this.userService.findUser({
+      email,
+    });
+
+    if (user) {
+      throw new ConflictException(
+        undefined,
+        'The email is already registered.',
+      );
+    }
   }
 }

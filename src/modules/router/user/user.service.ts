@@ -11,8 +11,6 @@ export class UserService {
    */
 
   async createUser(props: Prisma.UserCreateInput): Promise<User> {
-    // TODO: need to add logic to check if you are a registered user.
-
     return this.prisam.user.create({
       data: props,
     });
