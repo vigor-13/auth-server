@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
 import { winstonLogger } from '@commons';
 import { AppModule } from './modules/app';
 
@@ -10,7 +9,6 @@ async function bootstrap() {
   const appConfig = app.get(ConfigService).get('config');
 
   app.useLogger(winstonLogger);
-  app.useGlobalPipes(new ValidationPipe());
   app.enableShutdownHooks();
 
   const swaggerConfig = new DocumentBuilder()
