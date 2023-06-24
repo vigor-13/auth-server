@@ -1,43 +1,22 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
-import { User } from '@prisma/client';
 import * as DTO from './auth.dto';
+import { AuthUtilService } from './auth.util.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
+    private authUtilService: AuthUtilService,
   ) {}
-
-  /**
-   * Local User Validation
-   */
-  private async validateLocalUser(
-    props: DTO.SignInRequestBodyDto,
-  ): Promise<User | null> {
-    const user = await this.userService.findUser({
-      email: props.email,
-    });
-
-    if (!user || user.password !== props.password) {
-      throw new UnauthorizedException();
-    }
-
-    if (user && user.password === props.password) {
-      delete user.password;
-      return user;
-    }
-
-    return null;
-  }
 
   /**
    * Signin Local User
    */
   async signIn(props: DTO.SignInRequestBodyDto): Promise<any> {
-    const user = await this.validateLocalUser(props);
+    const user = await this.authUtilService.validateUserByPassword(props);
 
     return {
       access_token: await this.jwtService.signAsync({
@@ -50,10 +29,14 @@ export class AuthService {
   /**
    * Signup Local User
    */
-  async signUp(props: DTO.SignUpRequestBodyDto): Promise<any> {
+  async signUp(props: DTO.SignUpRequestBodyDto): Promise<null> {
+    const hashedPassword = await this.authUtilService.passwordHashingByArgon2(
+      props.password,
+    );
+
     const newUser = await this.userService.createUser({
       email: props.email,
-      password: props.password,
+      password: hashedPassword,
     });
 
     return null;
