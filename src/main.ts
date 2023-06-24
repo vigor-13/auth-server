@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { winstonLogger } from '@commons';
@@ -10,6 +11,10 @@ async function bootstrap() {
 
   app.useLogger(winstonLogger);
   app.enableShutdownHooks();
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: ['1'],
+  });
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Auth Server Example')
