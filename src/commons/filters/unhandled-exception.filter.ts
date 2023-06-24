@@ -1,26 +1,22 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-  Logger,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, Logger } from '@nestjs/common';
+import { BaseExceptionFilter } from '@nestjs/core';
 import Express from 'express';
 
-@Catch(HttpException)
-export class HttpExceptionFilter implements ExceptionFilter {
-  private readonly logger = new Logger('HTTP Excption Filter');
+@Catch()
+export class UnhandledExceptionFilter extends BaseExceptionFilter {
+  private readonly logger = new Logger('All Exception Filter');
 
-  catch(exception: HttpException, host: ArgumentsHost) {
+  catch(exception: Error, host: ArgumentsHost) {
     const context = host.switchToHttp();
     const request = context.getRequest<Express.Request>();
     const response = context.getResponse<Express.Response>();
-    const statusCode = exception.getStatus();
-    const message = exception.message;
+
+    const statusCode = 500;
+    const responseMessage = 'Internal server error';
 
     this.logger.error(
       `{${request.method}, ${request.url}}, {${request.ip}}, {${statusCode}, "${
-        message ? message : 'No Message'
+        exception.message ? exception.message : 'No Message'
       }"}\n`,
     );
 
@@ -28,7 +24,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       status: {
         isSuccess: false,
         code: statusCode,
-        message,
+        message: responseMessage,
         timestamp: new Date().toISOString(),
         path: request.url,
       },
