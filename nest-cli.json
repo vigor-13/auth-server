@@ -6,7 +6,13 @@
     "assets": [
       {
         "include": "../config/*.yaml",
-        "outDir": "./dist/config"
+        "outDir": "./dist/config",
+        "watchAssets": true
+      },
+      {
+        "include": "./assets/i18n/**/*",
+        "outDir": "./dist/src/",
+        "watchAssets": true
       }
     ]
   }
